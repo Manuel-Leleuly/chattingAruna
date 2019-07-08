@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity"
+    android:orientation="vertical"
+    android:background="@color/colorBase"
+    android:gravity="center">
+
+    <EditText
+        android:id="@+id/emailET"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:inputType="textEmailAddress"
+        android:hint="@string/email"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:layout_marginTop="140dp"
+        android:background="@drawable/roundedittext"
+        tools:ignore="RtlSymmetry"/>
+
+    <EditText
+        android:id="@+id/passwordET"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:inputType="textPassword"
+        android:hint="@string/password"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/roundedittext"
+        tools:ignore="RtlSymmetry" />
+
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:text="@string/masuk"
+        android:textSize="18sp"
+        android:textColor="#fff"
+        android:layout_marginTop="55dp"
+        android:background="@drawable/roundbutton"/>
+
+    <TextView
+        android:id="@+id/intoregis"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/intoregis"/>
+
+    <TextView
+        android:id="@+id/registerTextView"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="-19dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#0228ff"
+        android:text="@string/regis"/>
+
+</LinearLayout>
