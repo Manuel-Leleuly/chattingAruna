@@ -1,56 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:orientation="vertical"
+    android:background="@color/colorBase"
+    android:gravity="center">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/bar_layout"/>
+    <EditText
+        android:id="@+id/emailET"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:inputType="textEmailAddress"
+        android:hint="@string/email"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:layout_marginTop="140dp"
+        android:background="@drawable/roundedittext"
+        tools:ignore="RtlSymmetry"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:layout_below="@+id/toolbar"
-        android:padding="16dp"
-        android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/passwordET"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:inputType="textPassword"
+        android:hint="@string/password"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/roundedittext"
+        tools:ignore="RtlSymmetry" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Login"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:text="@string/masuk"
+        android:textSize="18sp"
+        android:textColor="#fff"
+        android:layout_marginTop="55dp"
+        android:background="@drawable/roundbutton"/>
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/email"
-            android:inputType="textEmailAddress"
-            android:layout_marginTop="10dp"
-            app:met_floatingLabel="normal"
-            android:hint="Email"/>
+    <TextView
+        android:id="@+id/intoregis"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/intoregis"/>
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/password"
-            android:inputType="textPassword"
-            android:layout_marginTop="10dp"
-            app:met_floatingLabel="normal"
-            android:hint="Password"/>
+    <TextView
+        android:id="@+id/registerTextView"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="-19dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#0228ff"
+        android:text="@string/regis"/>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="login"
-            android:id="@+id/btn_login"
-            android:background="@color/colorPrimaryDark"
-            android:layout_marginTop="10dp"
-            android:textColor="#fff"/>
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

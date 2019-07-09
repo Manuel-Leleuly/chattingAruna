@@ -1,6 +1,20 @@
 <resources>
-    <string name="app_name">chatting2</string>
+    <string name="app_name">ChatApp</string>
+    <string name="judul">CHATAPP</string>
+    <string name="intoregis">belum punya akun ?</string>
+    <string name="regis">klik disini</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="email">email</string>
+    <string name="masuk">masuk</string>
+    <string name="daftar">daftar</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="keluar">Keluar</string>
+    <string name="buat_group">Buat Group</string>
+    <string name="this_is_message">This is message</string>
+    <string name="this_is_profil">This is profil</string>
+    <string name="this_is_contact">This is contact</string>
+    <string name="usernamebig">Username</string>
 </resources>

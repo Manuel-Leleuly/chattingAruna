@@ -1,42 +1,42 @@
 {
   "project_info": {
-    "project_number": "913860262576",
-    "firebase_url": "https://chatting2-37c34.firebaseio.com",
-    "project_id": "chatting2-37c34",
-    "storage_bucket": "chatting2-37c34.appspot.com"
+    "project_number": "1031203020949",
+    "firebase_url": "https://chatapp-60cc0.firebaseio.com",
+    "project_id": "chatapp-60cc0",
+    "storage_bucket": "chatapp-60cc0.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:913860262576:android:df36a69019a6e035",
+        "mobilesdk_app_id": "1:1031203020949:android:5dee8f7115caaf13",
         "android_client_info": {
-          "package_name": "com.example.chatting2"
+          "package_name": "com.reyhan.chatapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "913860262576-i5l9fq1m1p4aacmj8043umgua11ue45g.apps.googleusercontent.com",
+          "client_id": "1031203020949-gug39kuhnd4no1fbu24knri62u72o7cq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.chatting2",
-            "certificate_hash": "3b28da61479eaf5fee1f4e6b90f828976b94794b"
+            "package_name": "com.reyhan.chatapp",
+            "certificate_hash": "a65e47d03bc3dc971074c2d74738b6ffcce22f94"
           }
         },
         {
-          "client_id": "913860262576-3ltmib93renfe15cklnp1mj0rdb41qnd.apps.googleusercontent.com",
+          "client_id": "1031203020949-shtcqdjgofsd57t034ct8j4u2u91ll52.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDpTKH6bGa1J80cbW6llmUIx2AElhquKeI"
+          "current_key": "AIzaSyBoHKsiFwMyZSiL8unjnX9QDq5loowvdRw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "913860262576-3ltmib93renfe15cklnp1mj0rdb41qnd.apps.googleusercontent.com",
+              "client_id": "1031203020949-shtcqdjgofsd57t034ct8j4u2u91ll52.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

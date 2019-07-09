@@ -1,64 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    tools:context=".RegisterActivity"
+    android:background="@color/colorBase">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/bar_layout"/>
-    
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
         android:layout_below="@+id/toolbar"
-        android:padding="16dp"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Create a new account"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/username"
-            android:layout_marginTop="10dp"
-            app:met_floatingLabel="normal"
-            android:hint="Username"/>
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/email"
+        <EditText
+            android:id="@+id/emailEditText"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
             android:inputType="textEmailAddress"
-            android:layout_marginTop="10dp"
-            app:met_floatingLabel="normal"
-            android:hint="Email"/>
+            android:hint="@string/email"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/roundedittext"
+            tools:ignore="RtlSymmetry"/>
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/password"
+        <EditText
+            android:id="@+id/usernameEditText"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:inputType="text"
+            android:hint="@string/username"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/roundedittext"
+            tools:ignore="RtlSymmetry"/>
+
+        <EditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
             android:inputType="textPassword"
-            android:layout_marginTop="10dp"
-            app:met_floatingLabel="normal"
-            android:hint="Password"/>
+            android:hint="@string/password"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/roundedittext"
+            tools:ignore="RtlSymmetry" />
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="register"
-            android:id="@+id/btn_register"
-            android:background="@color/colorPrimaryDark"
-            android:layout_marginTop="10dp"
-            android:textColor="#fff"/>
+            android:id="@+id/registerButton"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:text="@string/daftar"
+            android:textSize="18sp"
+            android:textColor="#fff"
+            android:layout_marginTop="55dp"
+            android:background="@drawable/roundbutton"/>
+
     </LinearLayout>
-    
+
 </RelativeLayout>
