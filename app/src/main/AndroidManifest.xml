@@ -30,7 +30,8 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Help.Advise" />
-        <activity android:name=".Help.Question"></activity>
+        <activity android:name=".Help.Question" />
+        <activity android:name=".MessageActivity"></activity>
     </application>
 
 </manifest>

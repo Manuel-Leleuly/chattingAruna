@@ -1,6 +1,7 @@
 package com.reyhan.chatapp.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.reyhan.chatapp.MessageActivity;
 import com.reyhan.chatapp.Model.User;
 import com.reyhan.chatapp.R;
 
@@ -44,6 +46,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         } else {
             Glide.with(context).load(user.getImageURL()).into(viewHolder.profile);
         }
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent messageintent = new Intent(context, MessageActivity.class);
+                context.startActivity(messageintent);
+            }
+        });
     }
 
     //memunculkan user sebanyak data didatabase
