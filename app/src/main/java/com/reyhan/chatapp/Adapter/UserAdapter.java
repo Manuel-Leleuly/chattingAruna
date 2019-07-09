@@ -52,12 +52,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         return users.size();
     }
 
+    //binding data di db dan di layout
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView username;
-        public ImageView profile;
+        private ImageView profile;
 
-        public ViewHolder(@NonNull View itemView) {
+        private ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             username = itemView.findViewById(R.id.usertextview);

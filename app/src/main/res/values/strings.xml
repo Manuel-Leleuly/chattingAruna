@@ -17,4 +17,7 @@
     <string name="this_is_profil">This is profil</string>
     <string name="this_is_contact">This is contact</string>
     <string name="usernamebig">Username</string>
+    <string name="status">Status</string>
+    <string name="tentang_penggunaan_aplikasi">Tentang Penggunaan Aplikasi</string>
+    <string name="cara_penggunaan_aplikasi">Cara Penggunaan Aplikasi</string>
 </resources>
