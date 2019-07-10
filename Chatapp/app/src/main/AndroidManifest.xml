@@ -10,8 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="ExtraText,GoogleAppIndexingWarning">
-        <activity android:name=".MessageActivity"></activity>
+        tools:ignore="ExtraText">
+        //Start app
         <activity
             android:name=".ScreenActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -21,6 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        //No action bar
         <activity
             android:name=".LoginActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -28,6 +29,9 @@
             android:name=".RegisterActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".Help.Advise" />
+        <activity android:name=".Help.Question" />
+        <activity android:name=".MessageActivity"></activity>
     </application>
 
 </manifest>

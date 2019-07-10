@@ -17,56 +17,65 @@ import com.reyhan.chatapp.R;
 
 import java.util.List;
 
-public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
+//buat adapter untuk menampilkan user
+public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
 
-    private Context mContext;
-    private List<User> mUsers;
+    private Context context;
+    private List<User> users;
 
-    public UserAdapter(Context mContext, List<User> mUsers){
-        this.mUsers = mUsers;
-        this.mContext = mContext;
+    public UserAdapter(Context context, List<User> users) {
+        this.context = context;
+        this.users = users;
     }
 
+    //tampilan akan berdasar pada layout user yang dibuat (binding)
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.user_item, viewGroup, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.user, viewGroup, false);
         return new UserAdapter.ViewHolder(view);
     }
 
+    //tarik data dari db dan set dilayout
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        final User user = mUsers.get(i);
+        final User user = users.get(i);
+        viewHolder.username.setText(user.getUsername());
         if (user.getImageURL().equals("default")){
-            viewHolder.profile_image.setImageResource(R.mipmap.ic_launcher);
-        }
-        else{
-            Glide.with(mContext).load(user.getImageURL()).into(viewHolder.profile_image);
+            viewHolder.profile.setImageResource(R.drawable.user);
+        } else {
+            Glide.with(context).load(user.getImageURL()).into(viewHolder.profile);
         }
 
+        //respon ketika kontak di klik
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, MessageActivity.class);
-                intent.putExtra("userid", user.getId());
-                mContext.startActivity(intent);
+                Intent messageintent = new Intent(context, MessageActivity.class);
+                messageintent.putExtra("userid", user.getId());
+                context.startActivity(messageintent);
             }
         });
     }
 
+    //memunculkan user sebanyak data didatabase
     @Override
     public int getItemCount() {
-        return mUsers.size();
+        return users.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView username;
-        public ImageView profile_image;
+    //binding data di db dan di layout
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ViewHolder(View itemView){
+        public TextView username;
+        private ImageView profile;
+
+        private ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            username = itemView.findViewById(R.id.username);
+            username = itemView.findViewById(R.id.usertextview);
+            profile = itemView.findViewById(R.id.userimage);
+
         }
     }
 }

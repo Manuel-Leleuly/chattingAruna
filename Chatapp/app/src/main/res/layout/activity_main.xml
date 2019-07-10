@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/colorBase">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -23,8 +24,8 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image"
                 android:background="@drawable/user"
-                android:layout_width="30dp"
-                android:layout_height="30dp"/>
+                android:layout_width="35dp"
+                android:layout_height="35dp"/>
 
             <TextView
                 android:id="@+id/username"
@@ -32,9 +33,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
                 android:layout_marginStart="25dp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="#fff"
-                android:text="Username"/>
+                android:text="Username"
+                tools:ignore="RtlHardcoded" />
 
         </android.support.v7.widget.Toolbar>
 
