@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.reyhan.chatapp.MessageActivity;
 import com.reyhan.chatapp.Model.User;
 import com.reyhan.chatapp.R;
+import com.reyhan.chatapp.RegisterActivity;
 
 import java.util.List;
 

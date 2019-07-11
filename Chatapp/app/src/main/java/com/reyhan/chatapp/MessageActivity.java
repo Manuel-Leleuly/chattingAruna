@@ -34,8 +34,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MessageActivity extends AppCompatActivity {
 
-    private CircleImageView circleImageView;
-    private TextView username;
+    //private CircleImageView circleImageView;
+    //private TextView username;
+
+    CircleImageView circleImageView;
+    TextView username;
 
     FirebaseUser firebaseUser;
     DatabaseReference reference;
@@ -76,16 +79,16 @@ public class MessageActivity extends AppCompatActivity {
         //binding
         circleImageView = findViewById(R.id.profil_image);
         username = findViewById(R.id.usernamecontact);
-        btn_send = findViewById(R.id.btn_send);
-        text_send = findViewById(R.id.text_send);
+        //btn_send = findViewById(R.id.btn_send);
+        //text_send = findViewById(R.id.text_send);
 
         //ambil id user dari db
         intent = getIntent();
-        final String userid = intent.getStringExtra("userid");
+        String userid = intent.getStringExtra("userid");
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        btn_send.setOnClickListener(new View.OnClickListener() {
+        /*btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String msg = text_send.getText().toString();
@@ -95,23 +98,24 @@ public class MessageActivity extends AppCompatActivity {
                 else{
                     Toast.makeText(MessageActivity.this, "Tidak bisa mengirim pesan kosong", Toast.LENGTH_SHORT).show();
                 }
+                text_send.setText("");
             }
-        });
+        });*/
 
         reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                username.setText(user.getUsername());
-                if (user.getImageURL().equals("default")){
+                User pengguna = dataSnapshot.getValue(User.class);
+                username.setText(pengguna.getUsername());
+                if (pengguna.getImageURL().equals("default")){
                     circleImageView.setImageResource(R.drawable.user);
                 } else {
-                    Glide.with(MessageActivity.this).load(user.getImageURL()).into(circleImageView);
+                    Glide.with(MessageActivity.this).load(pengguna.getImageURL()).into(circleImageView);
                 }
 
-                readMessages(firebaseUser.getUid(), userid, user.getImageURL());
+                //readMessages(firebaseUser.getUid(), userid, pengguna.getImageURL());
             }
 
             @Override
@@ -121,7 +125,10 @@ public class MessageActivity extends AppCompatActivity {
         });
     }
 
-    private void sendMessage(String sender, String receiver, String message){
+    /*private void sendMessage(String sender, String receiver, String message){
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("sender", sender);
         hashMap.put("receiver", receiver);
@@ -144,7 +151,7 @@ public class MessageActivity extends AppCompatActivity {
                         chat.add(pesan);
                     }
 
-                    messageAdapter = new MessageAdapter(MessageActivity.this,chat,imageurl);
+                    messageAdapter = new MessageAdapter(MessageActivity.this, chat, imageurl);
                     recyclerView.setAdapter(messageAdapter);
                 }
             }
@@ -154,5 +161,5 @@ public class MessageActivity extends AppCompatActivity {
 
             }
         });
-    }
+    }*/
 }
