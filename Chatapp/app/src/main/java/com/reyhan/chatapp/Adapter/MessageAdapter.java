@@ -14,39 +14,39 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.reyhan.chatapp.MessageActivity;
+
 import com.reyhan.chatapp.Model.Chat;
-import com.reyhan.chatapp.Model.User;
 import com.reyhan.chatapp.R;
 
 import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder>{
 
-    public static final int MSG_TYPE_LEFT = 0;
-    public static final int MSG_TYPE_RIGHT = 1;
+    //set adapter
+    public static final int LEFT_MSG = 0;
+    public static final int RIGHT_MSG = 1;
 
     private Context context;
-    private List<Chat> chat;
-    private String imageurl;
+    private List<Chat> chats;
+    private String imageURL;
 
     FirebaseUser firebaseUser;
 
-    public MessageAdapter(Context context, List<Chat> chat, String imageurl) {
+    public MessageAdapter(Context context, List<Chat> chats, String imageURL) {
         this.context = context;
-        this.chat = chat;
-        this.imageurl = imageurl;
+        this.chats = chats;
+        this.imageURL = imageURL;
     }
 
     //tampilan akan berdasar pada layout user yang dibuat (binding)
     @NonNull
     @Override
     public MessageAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        if(i == MSG_TYPE_RIGHT) {
-            View view = LayoutInflater.from(context).inflate(R.layout.chat_item_right, viewGroup, false);
+        if (i == RIGHT_MSG) {
+            View view = LayoutInflater.from(context).inflate(R.layout.chat_right_view, viewGroup, false);
             return new MessageAdapter.ViewHolder(view);
-        }
-        else{
-            View view = LayoutInflater.from(context).inflate(R.layout.chat_item_left, viewGroup,false);
+        } else {
+            View view = LayoutInflater.from(context).inflate(R.layout.chat_left_view, viewGroup, false);
             return new MessageAdapter.ViewHolder(view);
         }
     }
@@ -54,45 +54,59 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     //tarik data dari db dan set dilayout
     @Override
     public void onBindViewHolder(@NonNull MessageAdapter.ViewHolder viewHolder, int i) {
-        Chat pesan = chat.get(i);
-        viewHolder.show_message.setText(pesan.getMessage());
-        if(imageurl.equals("default")){
+
+        Chat chat = chats.get(i);
+
+        viewHolder.message.setText(chat.getMessage());
+        if (imageURL.equals("default")){
             viewHolder.profile.setImageResource(R.drawable.user);
+        } else {
+            Glide.with(context).load(imageURL).into(viewHolder.profile);
+        }
+
+        if(i == chats.size()-1){
+            if(chat.isIsseen()){
+                viewHolder.txt_seen.setText("Seen");
+            }
+            else{
+                viewHolder.txt_seen.setText("Delivered");
+            }
         }
         else{
-            Glide.with(context).load(imageurl).into(viewHolder.profile);
+            viewHolder.txt_seen.setVisibility(View.GONE);
         }
+
     }
 
     //memunculkan user sebanyak data didatabase
     @Override
     public int getItemCount() {
-        return chat.size();
+        return chats.size();
     }
 
     //binding data di db dan di layout
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView show_message;
+        public TextView message;
         private ImageView profile;
+        public TextView txt_seen;
 
         private ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            show_message = itemView.findViewById(R.id.show_message);
-            profile = itemView.findViewById(R.id.userimage);
-
+            message = itemView.findViewById(R.id.show_message);
+            profile = itemView.findViewById(R.id.image_profile);
+            txt_seen = itemView.findViewById(R.id.txt_seen);
         }
     }
 
     @Override
     public int getItemViewType(int position) {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        if(chat.get(position).getSender().equals(firebaseUser.getUid())){
-            return MSG_TYPE_RIGHT;
-        }
-        else{
-            return MSG_TYPE_LEFT;
+        if (chats.get(position).getSender().equals(firebaseUser.getUid())){
+            return RIGHT_MSG;
+        } else {
+            return LEFT_MSG;
         }
     }
 }

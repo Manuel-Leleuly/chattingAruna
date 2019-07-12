@@ -29,6 +29,7 @@ import com.reyhan.chatapp.Fragment.UsersFragment;
 import com.reyhan.chatapp.Model.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -69,7 +70,9 @@ public class MainActivity extends AppCompatActivity {
                 if (user.getImageURL().equals("default")){
                     profile.setImageResource(R.drawable.user);
                 }else {
-                    Glide.with(MainActivity.this).load(user.getImageURL()).into(profile);
+
+                    //kodingan dirubah
+                    Glide.with(getApplicationContext()).load(user.getImageURL()).into(profile);
                 }
             }
 
@@ -103,8 +106,9 @@ public class MainActivity extends AppCompatActivity {
             //fungsi firebase untuk logout
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                finish();
+
+                //diganti kodingannya biar tidak crash
+                startActivity(new Intent(MainActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 return true;
 
             //buat group chat
@@ -146,5 +150,26 @@ public class MainActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return titles.get(position);
         }
+    }
+
+    private void status(String status){
+        reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("status", status);
+
+        reference.updateChildren(hashMap);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        status("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        status("offline");
     }
 }

@@ -4,51 +4,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment.ProfilFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorBase">
 
-    <LinearLayout
-        android:id="@+id/linear"
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/colorBase">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/imageprofil"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:background="@drawable/user"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"/>
-
-        <TextView
-            android:id="@+id/username"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/linear"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/usernamebig"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="25dp"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/colorText"/>
+            android:orientation="vertical"
+            android:background="@color/colorBase">
 
-        <TextView
-            android:id="@+id/status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/status"
-            android:layout_gravity="center_horizontal"
-            android:textSize="16sp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:textStyle="bold"
-            android:textColor="@color/colorText"/>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageprofil"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:background="@drawable/user"
+                android:layout_marginTop="41dp"
+                android:layout_centerHorizontal="true"/>
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/username"
+                android:layout_below="@+id/imageprofil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/usernamebig"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorText"/>
+
+            <TextView
+                android:id="@+id/status"
+                android:layout_below="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/status"
+                android:layout_centerHorizontal="true"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textStyle="bold"
+                android:textColor="@color/colorText"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="161dp"
+        android:layout_height="158dp"
         android:layout_marginVertical="250dp"
         tools:ignore="UnusedAttribute"
         android:background="#464646">
@@ -58,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:orientation="horizontal"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="1dp"
             tools:ignore="UseCompoundDrawables"
             android:background="@color/colorBase">
 
@@ -87,7 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_below="@+id/line1"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="1dp"
             android:orientation="horizontal"
             tools:ignore="UseCompoundDrawables"
             android:background="@color/colorBase">

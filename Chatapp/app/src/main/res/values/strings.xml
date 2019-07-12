@@ -20,4 +20,6 @@
     <string name="status">Status</string>
     <string name="tentang_penggunaan_aplikasi">Tentang Penggunaan Aplikasi</string>
     <string name="cara_penggunaan_aplikasi">Cara Penggunaan Aplikasi</string>
+    <string name="ketik">ketik disini...</string>
+    <string name="test">Test</string>
 </resources>

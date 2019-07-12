@@ -1,6 +1,7 @@
 package com.reyhan.chatapp;
 
 import android.content.Intent;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,21 +38,20 @@ public class MessageActivity extends AppCompatActivity {
     private CircleImageView circleImageView;
     private TextView username;
 
-    //CircleImageView circleImageView;
-    //TextView username;
-
     FirebaseUser firebaseUser;
     DatabaseReference reference;
 
-    ImageButton btn_send;
-    EditText text_send;
+    ImageButton send;
+    EditText text;
 
     MessageAdapter messageAdapter;
-    List<Chat> chat;
+    List<Chat> chats;
 
     RecyclerView recyclerView;
 
     Intent intent;
+
+    ValueEventListener seenListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,43 +66,43 @@ public class MessageActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                //disini juga diganti biar ga crash
+                startActivity(new Intent(MessageActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
 
-        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-
         //binding
         circleImageView = findViewById(R.id.profil_image);
         username = findViewById(R.id.usernamecontact);
-        btn_send = findViewById(R.id.btn_send);
-        text_send = findViewById(R.id.text_send);
+        send = findViewById(R.id.sendButton);
+        text = findViewById(R.id.sendEditText);
 
-        //ambil id user dari db
+        //ambil id user yang ingin dichat dari db
         intent = getIntent();
-        final String userid = intent.getStringExtra("id");
+        final String userid = intent.getStringExtra("userid");
 
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        btn_send.setOnClickListener(new View.OnClickListener() {
+        //respon ketika tombol kirim ditekan
+        send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String msg = text_send.getText().toString();
-                if(!msg.equals("")){
-                    sendMessage(firebaseUser.getUid(), userid, msg);
+                String message = text.getText().toString();
+                if (!message.equals("")) {
+                    sndMessage(firebaseUser.getUid(), userid, message);
+                    text.setText("");
+                } else {
+                    Toast.makeText(MessageActivity.this, "Field harus diisi", Toast.LENGTH_LONG).show();
                 }
-                else{
-                    Toast.makeText(MessageActivity.this, "Tidak bisa mengirim pesan kosong", Toast.LENGTH_SHORT).show();
-                }
-                text_send.setText("");
             }
         });
 
+        //set username dan profil picture
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
 
         reference.addValueEventListener(new ValueEventListener() {
@@ -113,10 +113,33 @@ public class MessageActivity extends AppCompatActivity {
                 if (user.getImageURL().equals("default")){
                     circleImageView.setImageResource(R.drawable.user);
                 } else {
-                    Glide.with(MessageActivity.this).load(user.getImageURL()).into(circleImageView);
+                    //yang ini dirubah juga
+                    Glide.with(getApplicationContext()).load(user.getImageURL()).into(circleImageView);
                 }
+                readMessage(firebaseUser.getUid(), userid, user.getImageURL());
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                readMessages(firebaseUser.getUid(), userid, user.getImageURL());
+            }
+        });
+
+        seenMessage(userid);
+    }
+
+    private void seenMessage(final String userid){
+        reference = FirebaseDatabase.getInstance().getReference("Chats");
+        seenListener = reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Chat chat = snapshot.getValue(Chat.class);
+                    if(chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid)){
+                        HashMap<String, Object> hashMap = new HashMap<>();
+                        hashMap.put("isseen",true);
+                        snapshot.getRef().updateChildren(hashMap);
+                    }
+                }
             }
 
             @Override
@@ -126,33 +149,35 @@ public class MessageActivity extends AppCompatActivity {
         });
     }
 
-    private void sendMessage(String sender, String receiver, String message){
-
+    private void sndMessage (String sender, String receiver, String message){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
+        //bungkus variabel yang ingin dikirim ke db dengan hashmap
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("sender", sender);
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
+        hashMap.put("isseen", false);
 
+        //buat db baru dengan nama chats yang berisi variabel di hashmap
         reference.child("Chats").push().setValue(hashMap);
     }
 
-    private void readMessages(final String myid, final String userid, final String imageurl){
-        chat = new ArrayList<>();
+    private void readMessage (final String myid, final String userid, final String imageURL){
+        chats = new ArrayList<>();
 
         reference = FirebaseDatabase.getInstance().getReference("Chats");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                chat.clear();
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    Chat pesan = snapshot.getValue(Chat.class);
-                    if(pesan.getReceiver().equals(myid) && pesan.getSender().equals(userid) || pesan.getReceiver().equals(userid) && pesan.getSender().equals(myid)){
-                        chat.add(pesan);
+                chats.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Chat chat = snapshot.getValue(Chat.class);
+                    if (chat.getReceiver().equals(myid) && chat.getSender().equals(userid) ||
+                            chat.getReceiver().equals(userid) && chat.getSender().equals(myid)){
+                        chats.add(chat);
                     }
-
-                    messageAdapter = new MessageAdapter(MessageActivity.this, chat, imageurl);
+                    messageAdapter = new MessageAdapter(MessageActivity.this, chats, imageURL);
                     recyclerView.setAdapter(messageAdapter);
                 }
             }
@@ -162,5 +187,28 @@ public class MessageActivity extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    private void status(String status){
+        reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("status", status);
+
+        reference.updateChildren(hashMap);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        status("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        reference.removeEventListener(seenListener);
+        status("offline");
     }
 }

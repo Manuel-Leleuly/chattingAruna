@@ -9,9 +9,9 @@
     android:background="@color/colorBase">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bar_layout">
+        android:layout_height="wrap_content">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -44,36 +44,42 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recycler_view"
-        android:layout_below="@id/bar_layout"
-        android:layout_above="@id/bottom"/>
+        android:layout_above="@+id/relative"
+        android:layout_below="@+id/bar_layout">
+
+    </android.support.v7.widget.RecyclerView>
 
     <RelativeLayout
+        android:id="@+id/relative"
         android:layout_width="match_parent"
-        android:padding="5dp"
-        android:background="#fff"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:id="@+id/bottom"
-        android:layout_height="wrap_content">
+        android:background="#fff"
+        android:padding="5dp">
 
         <EditText
+            android:id="@+id/sendEditText"
+            android:layout_toStartOf="@+id/sendButton"
+            android:background="@android:color/transparent"
+            android:hint="@string/ketik"
+            android:paddingStart="10dp"
+            android:paddingEnd="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/text_send"
-            android:background="@android:color/transparent"
-            android:hint="Ketikkan pesan..."
-            android:layout_toLeftOf="@id/btn_send"
             android:layout_centerVertical="true"/>
 
         <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/ic_action_name"
-            android:id="@+id/btn_send"
+            android:id="@+id/sendButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:background="@drawable/ic_action_message"
+            tools:ignore="RtlHardcoded" />
 
 
     </RelativeLayout>
