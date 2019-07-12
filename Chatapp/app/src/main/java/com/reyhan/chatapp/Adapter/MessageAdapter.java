@@ -42,7 +42,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     @Override
     public MessageAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         if(i == MSG_TYPE_RIGHT) {
-            View view = LayoutInflater.from(context).inflate(R.layout.user, viewGroup, false);
+            View view = LayoutInflater.from(context).inflate(R.layout.chat_item_right, viewGroup, false);
             return new MessageAdapter.ViewHolder(view);
         }
         else{

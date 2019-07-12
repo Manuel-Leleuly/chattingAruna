@@ -34,11 +34,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MessageActivity extends AppCompatActivity {
 
-    //private CircleImageView circleImageView;
-    //private TextView username;
+    private CircleImageView circleImageView;
+    private TextView username;
 
-    CircleImageView circleImageView;
-    TextView username;
+    //CircleImageView circleImageView;
+    //TextView username;
 
     FirebaseUser firebaseUser;
     DatabaseReference reference;
@@ -70,25 +70,26 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
+
         //binding
         circleImageView = findViewById(R.id.profil_image);
         username = findViewById(R.id.usernamecontact);
-        //btn_send = findViewById(R.id.btn_send);
-        //text_send = findViewById(R.id.text_send);
+        btn_send = findViewById(R.id.btn_send);
+        text_send = findViewById(R.id.text_send);
 
         //ambil id user dari db
         intent = getIntent();
-        String userid = intent.getStringExtra("userid");
+        final String userid = intent.getStringExtra("id");
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        /*btn_send.setOnClickListener(new View.OnClickListener() {
+        btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String msg = text_send.getText().toString();
@@ -100,22 +101,22 @@ public class MessageActivity extends AppCompatActivity {
                 }
                 text_send.setText("");
             }
-        });*/
+        });
 
         reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User pengguna = dataSnapshot.getValue(User.class);
-                username.setText(pengguna.getUsername());
-                if (pengguna.getImageURL().equals("default")){
+                User user = dataSnapshot.getValue(User.class);
+                username.setText(user.getUsername());
+                if (user.getImageURL().equals("default")){
                     circleImageView.setImageResource(R.drawable.user);
                 } else {
-                    Glide.with(MessageActivity.this).load(pengguna.getImageURL()).into(circleImageView);
+                    Glide.with(MessageActivity.this).load(user.getImageURL()).into(circleImageView);
                 }
 
-                //readMessages(firebaseUser.getUid(), userid, pengguna.getImageURL());
+                readMessages(firebaseUser.getUid(), userid, user.getImageURL());
             }
 
             @Override
@@ -125,7 +126,7 @@ public class MessageActivity extends AppCompatActivity {
         });
     }
 
-    /*private void sendMessage(String sender, String receiver, String message){
+    private void sendMessage(String sender, String receiver, String message){
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
@@ -147,7 +148,7 @@ public class MessageActivity extends AppCompatActivity {
                 chat.clear();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Chat pesan = snapshot.getValue(Chat.class);
-                    if(pesan.getReceiver().equals(userid) && pesan.getSender().equals(userid) || pesan.getReceiver().equals(userid) && pesan.getSender().equals(userid)){
+                    if(pesan.getReceiver().equals(myid) && pesan.getSender().equals(userid) || pesan.getReceiver().equals(userid) && pesan.getSender().equals(myid)){
                         chat.add(pesan);
                     }
 
@@ -161,5 +162,5 @@ public class MessageActivity extends AppCompatActivity {
 
             }
         });
-    }*/
+    }
 }
