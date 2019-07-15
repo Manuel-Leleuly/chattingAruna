@@ -40,15 +40,29 @@
                 android:textColor="@color/colorText"/>
 
             <TextView
-                android:id="@+id/status"
+                android:id="@+id/offline"
                 android:layout_below="@+id/username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/status"
+                android:text="@string/offline"
                 android:layout_centerHorizontal="true"
                 android:textSize="16sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="15dp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                android:textColor="@color/colorText"/>
+
+            <TextView
+                android:id="@+id/online"
+                android:layout_below="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/online"
+                android:layout_centerHorizontal="true"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="15dp"
                 android:textStyle="bold"
                 android:textColor="@color/colorText"/>
 
@@ -74,8 +88,8 @@
 
             <ImageView
                 android:id="@+id/advise"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="20dp"
                 android:background="@drawable/advise" />
@@ -104,8 +118,8 @@
 
             <ImageView
                 android:id="@+id/ask"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="20dp"
                 android:background="@drawable/question" />

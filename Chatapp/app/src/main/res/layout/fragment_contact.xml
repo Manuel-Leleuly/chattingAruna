@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment.ContactFragment"
     android:background="@color/colorBase">
 
+    <EditText
+        android:id="@+id/search_view"
+        android:hint="@string/cari_disini"
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:paddingStart="5dp"
+        android:layout_height="wrap_content" />
+
     <android.support.v7.widget.RecyclerView
+        android:layout_below="@id/search_view"
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
 
-</FrameLayout>
+</RelativeLayout>

@@ -26,6 +26,13 @@
             android:padding="8dp"
             android:text="@string/test"/>
 
+        <TextView
+            android:id="@+id/text_seen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_below="@id/show_message"/>
+
     </RelativeLayout>
 
 </RelativeLayout>

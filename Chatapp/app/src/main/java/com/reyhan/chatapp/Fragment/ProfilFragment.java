@@ -45,13 +45,13 @@ import static android.app.Activity.RESULT_OK;
 
 public class ProfilFragment extends Fragment {
 
-
     CircleImageView profil;
     private TextView username;
     private LinearLayout advise, question;
 
     FirebaseUser firebaseUser;
     DatabaseReference reference;
+
 
     //set storage untuk penyimpanan foto
     StorageReference storageReference;
@@ -81,12 +81,14 @@ public class ProfilFragment extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                username.setText(user.getUsername());
-                if (user.getImageURL().equals("default")){
-                    profil.setImageResource(R.drawable.user);
-                } else {
-                    Glide.with(getContext()).load(user.getImageURL()).into(profil);
+                if (isAdded()){
+                    User user = dataSnapshot.getValue(User.class);
+                    username.setText(user.getUsername());
+                    if (user.getImageURL().equals("default")){
+                        profil.setImageResource(R.drawable.user);
+                    } else {
+                        Glide.with(getContext()).load(user.getImageURL()).into(profil);
+                    }
                 }
             }
 
@@ -200,4 +202,5 @@ public class ProfilFragment extends Fragment {
             }
         }
     }
+
 }

@@ -26,31 +26,29 @@
         android:text="@string/usernamebig"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageOn"
         android:layout_width="15dp"
         android:layout_height="15dp"
-        app:civ_border_width="10dp"
-        app:civ_border_color="#05df29"
-        android:id="@+id/log_on"
-        android:visibility="gone"
         android:src="@mipmap/ic_launcher"
-        android:layout_below="@id/usertextview"
-        android:layout_marginTop="10dp"
+        app:civ_border_color="#10de0c"
+        app:civ_border_width="8dp"
+        android:visibility="gone"
         android:layout_marginLeft="-15dp"
         android:layout_toRightOf="@id/userimage"
-        android:layout_toEndOf="@id/userimage"/>
+        android:layout_toEndOf="@id/userimage"
+        android:layout_below="@id/usertextview"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageOff"
         android:layout_width="15dp"
         android:layout_height="15dp"
-        app:civ_border_width="10dp"
-        app:civ_border_color="#bfbfbf"
-        android:id="@+id/log_off"
+        app:civ_border_color="#505050"
+        app:civ_border_width="8dp"
         android:visibility="gone"
         android:src="@mipmap/ic_launcher"
-        android:layout_below="@id/usertextview"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="-15dp"
         android:layout_toRightOf="@id/userimage"
-        android:layout_toEndOf="@id/userimage"/>
+        android:layout_toEndOf="@id/userimage"
+        android:layout_below="@id/usertextview"/>
 
 </RelativeLayout>

@@ -34,7 +34,7 @@
             android:id="@+id/usernameEditText"
             android:layout_width="280dp"
             android:layout_height="50dp"
-            android:inputType="text"
+            android:inputType="textCapWords"
             android:hint="@string/username"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"

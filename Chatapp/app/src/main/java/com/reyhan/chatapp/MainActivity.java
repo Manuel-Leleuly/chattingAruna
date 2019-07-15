@@ -70,8 +70,6 @@ public class MainActivity extends AppCompatActivity {
                 if (user.getImageURL().equals("default")){
                     profile.setImageResource(R.drawable.user);
                 }else {
-
-                    //kodingan dirubah
                     Glide.with(getApplicationContext()).load(user.getImageURL()).into(profile);
                 }
             }
@@ -106,9 +104,8 @@ public class MainActivity extends AppCompatActivity {
             //fungsi firebase untuk logout
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
-
-                //diganti kodingannya biar tidak crash
                 startActivity(new Intent(MainActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                finish();
                 return true;
 
             //buat group chat

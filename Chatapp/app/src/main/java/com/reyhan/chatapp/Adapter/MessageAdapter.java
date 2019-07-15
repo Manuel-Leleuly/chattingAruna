@@ -64,16 +64,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             Glide.with(context).load(imageURL).into(viewHolder.profile);
         }
 
-        if(i == chats.size()-1){
-            if(chat.isIsseen()){
-                viewHolder.txt_seen.setText("Seen");
+        //cek posisi chat terakhir
+        if (i == chats.size() - 1){
+            if (chat.isIsseen()){
+                viewHolder.seen.setText("Dilihat");
+            } else {
+                viewHolder.seen.setText("Terkirim");
             }
-            else{
-                viewHolder.txt_seen.setText("Delivered");
-            }
-        }
-        else{
-            viewHolder.txt_seen.setVisibility(View.GONE);
+        } else {
+            viewHolder.seen.setVisibility(View.GONE);
         }
 
     }
@@ -89,14 +88,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
         public TextView message;
         private ImageView profile;
-        public TextView txt_seen;
+
+        public TextView seen;
 
         private ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             message = itemView.findViewById(R.id.show_message);
             profile = itemView.findViewById(R.id.image_profile);
-            txt_seen = itemView.findViewById(R.id.txt_seen);
+            seen = itemView.findViewById(R.id.text_seen);
         }
     }
 

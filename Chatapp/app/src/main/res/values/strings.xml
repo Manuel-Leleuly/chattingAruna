@@ -22,4 +22,8 @@
     <string name="cara_penggunaan_aplikasi">Cara Penggunaan Aplikasi</string>
     <string name="ketik">ketik disini...</string>
     <string name="test">Test</string>
+    <string name="offline">Offline</string>
+    <string name="online">Online</string>
+    <string name="cari_disini">Cari disini...</string>
+    <string name="dilihat">dilihat</string>
 </resources>
