@@ -12,7 +12,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.reyhan.chatapp.MessageActivity;
+import com.reyhan.chatapp.Model.Chat;
 import com.reyhan.chatapp.Model.User;
 import com.reyhan.chatapp.R;
 
@@ -25,6 +33,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
     private Context context;
     private List<User> users;
     private boolean isChat;
+
+    String theLastMessage;
 
     public UserAdapter(Context context, List<User> users, boolean isChat) {
         this.context = context;
@@ -49,6 +59,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
             viewHolder.profile.setImageResource(R.drawable.user);
         } else {
             Glide.with(context).load(user.getImageURL()).into(viewHolder.profile);
+        }
+
+        if (isChat){
+            lastMessage(user.getId(), viewHolder.message);
+        } else {
+            viewHolder.message.setVisibility(View.GONE);
         }
 
         //status online dan offline
@@ -89,6 +105,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         private ImageView profile;
         private ImageView img_on;
         private ImageView img_off;
+        public TextView message;
+
 
         private ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -97,7 +115,45 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
             profile = itemView.findViewById(R.id.userimage);
             img_on = itemView.findViewById(R.id.imageOn);
             img_off = itemView.findViewById(R.id.imageOff);
+            message = itemView.findViewById(R.id.lastMessage);
 
         }
+    }
+
+    private void lastMessage (final String userid, final TextView message) {
+        theLastMessage = "default";
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Chats");
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Chat chat = snapshot.getValue(Chat.class);
+                    if (chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid)
+                            || chat.getReceiver().equals(userid) && chat.getSender().equals(firebaseUser.getUid())){
+                        theLastMessage = chat.getMessage();
+                    }
+                }
+
+                switch (theLastMessage){
+                    case "default":
+                        message.setText("Tidak ada pesan");
+                        break;
+
+                    default:
+                        message.setText(theLastMessage);
+                        break;
+
+                }
+                theLastMessage = "default";
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

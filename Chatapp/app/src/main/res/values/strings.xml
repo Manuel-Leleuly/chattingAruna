@@ -26,4 +26,6 @@
     <string name="online">Online</string>
     <string name="cari_disini">Cari disini...</string>
     <string name="dilihat">dilihat</string>
+    <string name="lupa_password">lupa password ?</string>
+    <string name="reset">Setelah menekan tombol reset, maka akan ada email yang masuk untuk mereset password</string>
 </resources>

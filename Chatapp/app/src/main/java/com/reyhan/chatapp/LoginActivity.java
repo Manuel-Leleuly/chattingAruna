@@ -21,6 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText email,password;
     private Button loginbutton;
     private TextView regisbutton;
+    private TextView forgotpass;
 
     FirebaseAuth auth;
 
@@ -37,6 +38,14 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.passwordET);
         regisbutton = findViewById(R.id.registerTextView);
         loginbutton = findViewById(R.id.loginBtn);
+        forgotpass = findViewById(R.id.forgot_password);
+
+        forgotpass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, ResetPasswordActivity.class));
+            }
+        });
 
         loginbutton.setOnClickListener(new View.OnClickListener() {
             @Override

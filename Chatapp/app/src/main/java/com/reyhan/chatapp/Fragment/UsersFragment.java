@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.reyhan.chatapp.Adapter.UserAdapter;
 import com.reyhan.chatapp.Model.Chat;
+import com.reyhan.chatapp.Model.Chatlist;
 import com.reyhan.chatapp.Model.User;
 import com.reyhan.chatapp.R;
 
@@ -34,7 +35,7 @@ public class UsersFragment extends Fragment {
     FirebaseUser firebaseUser;
     DatabaseReference reference;
 
-    List<String> list;
+    private List<Chatlist> list;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,21 +51,17 @@ public class UsersFragment extends Fragment {
 
         list = new ArrayList<>();
 
-        reference = FirebaseDatabase.getInstance().getReference("Chats");
+        reference = FirebaseDatabase.getInstance().getReference("Chatlist").child(firebaseUser.getUid());
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 list.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    Chat chat = snapshot.getValue(Chat.class);
-                    if (chat.getSender().equals(firebaseUser.getUid())){
-                        list.add(chat.getReceiver());
-                    }
-                    if (chat.getReceiver().equals(firebaseUser.getUid())){
-                        list.add(chat.getSender());
-                    }
+                    Chatlist chatlist = snapshot.getValue(Chatlist.class);
+                    list.add(chatlist);
                 }
-                readChat();
+
+                chatList();
             }
 
             @Override
@@ -76,35 +73,21 @@ public class UsersFragment extends Fragment {
         return view;
     }
 
-    private void readChat() {
+    private void chatList() {
         users = new ArrayList<>();
-
         reference = FirebaseDatabase.getInstance().getReference("Users");
-
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 users.clear();
-
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     User user = snapshot.getValue(User.class);
-
-                    for (String id : list){
-                        if (user.getId().equals(id)){
-                            if (users.size()!= 0){
-                                for (User user1 : users){
-                                    if (!user.getId().equals(user1.getId())){
-                                        users.add(user);
-                                    }
-                                }
-                            } else {
-                                users.add(user);
-                            }
+                    for (Chatlist chatlist : list){
+                        if (user.getId().equals(chatlist.getId())){
+                            users.add(user);
                         }
                     }
-
                 }
-
                 userAdapter = new UserAdapter(getContext(), users, true);
                 recyclerView.setAdapter(userAdapter);
 
@@ -115,6 +98,7 @@ public class UsersFragment extends Fragment {
 
             }
         });
-
     }
+
+
 }

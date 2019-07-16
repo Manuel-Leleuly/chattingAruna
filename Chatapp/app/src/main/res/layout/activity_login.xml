@@ -33,6 +33,17 @@
         android:background="@drawable/roundedittext"
         tools:ignore="RtlSymmetry" />
 
+    <TextView
+        android:id="@+id/forgot_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lupa_password"
+        android:layout_gravity="end"
+        android:layout_marginEnd="55dp"
+        android:layout_marginTop="10dp"
+        android:textSize="14sp"
+        android:textColor="#0228ff"/>
+
     <Button
         android:id="@+id/loginBtn"
         android:layout_width="280dp"

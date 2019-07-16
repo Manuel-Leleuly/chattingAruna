@@ -15,11 +15,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "1031203020949-7j0n3sdaiahlke13kvknj57i1d55b4uj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.reyhan.chatapp",
+            "certificate_hash": "85cc77ce918cb6c935e6354645132c500da58d8b"
+          }
+        },
+        {
           "client_id": "1031203020949-6rae4s6cbli0ods1md04mac27ev30mur.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.reyhan.chatapp",
             "certificate_hash": "3b28da61479eaf5fee1f4e6b90f828976b94794b"
+          }
+        },
+        {
+          "client_id": "1031203020949-gug39kuhnd4no1fbu24knri62u72o7cq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.reyhan.chatapp",
+            "certificate_hash": "a65e47d03bc3dc971074c2d74738b6ffcce22f94"
           }
         },
         {

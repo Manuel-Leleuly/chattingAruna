@@ -20,8 +20,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginStart="10dp"
-        android:textSize="16sp"
+        android:layout_marginStart="11dp"
+        android:textSize="18sp"
         android:textColor="@color/colorText"
         android:text="@string/usernamebig"/>
 
@@ -50,5 +50,18 @@
         android:layout_toRightOf="@id/userimage"
         android:layout_toEndOf="@id/userimage"
         android:layout_below="@id/usertextview"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/userimage"
+        android:layout_below="@+id/usertextview"
+        android:layout_marginLeft="11.5dp"
+        android:layout_marginTop="1dp"
+        android:paddingTop="1dp"
+        android:maxLines="1"
+        android:textColor="#afafaf"
+        android:id="@+id/lastMessage"/>
+
 
 </RelativeLayout>

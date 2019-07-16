@@ -21,8 +21,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.reyhan.chatapp.Adapter.UserAdapter;
 import com.reyhan.chatapp.Model.User;
+import com.reyhan.chatapp.Notification.Token;
 import com.reyhan.chatapp.R;
 
 import java.util.ArrayList;
@@ -76,7 +78,16 @@ public class ContactFragment extends Fragment {
             }
         });
 
+        updateToken(FirebaseInstanceId.getInstance().getToken());
+
         return view;
+    }
+
+    private void updateToken(String token){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens");
+        Token token1 = new Token(token);
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        reference.child(firebaseUser.getUid()).setValue(token1);
     }
 
     private void searchUsers(String s) {
