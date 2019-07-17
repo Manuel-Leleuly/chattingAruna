@@ -24,6 +24,8 @@ import com.reyhan.chatapp.Model.Chat;
 import com.reyhan.chatapp.Model.User;
 import com.reyhan.chatapp.R;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 //buat adapter untuk menampilkan user
@@ -35,6 +37,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
     private boolean isChat;
 
     String theLastMessage;
+
+    int jumlah_pesan_unread;
 
     public UserAdapter(Context context, List<User> users, boolean isChat) {
         this.context = context;
@@ -62,7 +66,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         }
 
         if (isChat){
-            lastMessage(user.getId(), viewHolder.message);
+            lastMessage(user.getId(), viewHolder.message, viewHolder.notif_each_user);
         } else {
             viewHolder.message.setVisibility(View.GONE);
         }
@@ -106,6 +110,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         private ImageView img_on;
         private ImageView img_off;
         public TextView message;
+        public TextView notif_each_user;
 
 
         private ViewHolder(@NonNull View itemView) {
@@ -116,12 +121,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
             img_on = itemView.findViewById(R.id.imageOn);
             img_off = itemView.findViewById(R.id.imageOff);
             message = itemView.findViewById(R.id.lastMessage);
+            notif_each_user = itemView.findViewById(R.id.notif_each_user);
 
         }
     }
 
-    private void lastMessage (final String userid, final TextView message) {
+    private void lastMessage (final String userid, final TextView message, final TextView notif_each_user) {
         theLastMessage = "default";
+        jumlah_pesan_unread = 0;
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Chats");
 
@@ -133,21 +140,32 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
                     if (chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid)
                             || chat.getReceiver().equals(userid) && chat.getSender().equals(firebaseUser.getUid())){
                         theLastMessage = chat.getMessage();
+                        if(chat.getSender().equals(userid)) {
+                            if(!chat.isIsseen()) {
+                                jumlah_pesan_unread++;
+                            }
+                        }
                     }
                 }
 
                 switch (theLastMessage){
                     case "default":
-                        message.setText("Tidak ada pesan");
+                        message.setText("");
                         break;
 
                     default:
                         message.setText(theLastMessage);
+                        if(jumlah_pesan_unread > 0) {
+                            notif_each_user.setText("(" + jumlah_pesan_unread + ")");
+                        }
+                        else if (jumlah_pesan_unread > 99){
+                            notif_each_user.setText("(99+)");
+                        }
                         break;
 
                 }
                 theLastMessage = "default";
-
+                jumlah_pesan_unread = 0;
             }
 
             @Override

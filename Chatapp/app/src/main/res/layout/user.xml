@@ -63,5 +63,15 @@
         android:textColor="#afafaf"
         android:id="@+id/lastMessage"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/usertextview"
+        android:layout_toEndOf="@id/usertextview"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:id="@+id/notif_each_user"/>
+
 
 </RelativeLayout>

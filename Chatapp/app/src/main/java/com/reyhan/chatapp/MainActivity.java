@@ -99,6 +99,9 @@ public class MainActivity extends AppCompatActivity {
                 if(unread == 0){
                     viewPagerAdapter.addFragment(new UsersFragment(), "Pesan");
                 }
+                else if(unread > 99){
+                    viewPagerAdapter.addFragment(new UsersFragment(), "(99+) Pesan");
+                }
                 else{
                     viewPagerAdapter.addFragment(new UsersFragment(), "("+unread+") Pesan");
                 }
