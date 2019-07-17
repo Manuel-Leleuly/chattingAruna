@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.reyhan.chatapp.Fragment.ContactFragment;
 import com.reyhan.chatapp.Fragment.ProfilFragment;
 import com.reyhan.chatapp.Fragment.UsersFragment;
+import com.reyhan.chatapp.Model.Chat;
 import com.reyhan.chatapp.Model.User;
 
 import java.util.ArrayList;
@@ -52,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("");
 
         //binding
-        TabLayout tabLayout = findViewById(R.id.tab_layout);
-        ViewPager viewPager = findViewById(R.id.view_pager);
+        final TabLayout tabLayout = findViewById(R.id.tab_layout);
+        final ViewPager viewPager = findViewById(R.id.view_pager);
         profile = findViewById(R.id.profile_image);
         username = findViewById(R.id.username);
 
@@ -81,13 +82,38 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //adapter untuk fragment
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragment(new ContactFragment(), "Kontak");
-        viewPagerAdapter.addFragment(new UsersFragment(), "Pesan");
-        viewPagerAdapter.addFragment(new ProfilFragment(), "Profil");
+        reference = FirebaseDatabase.getInstance().getReference("Chats");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+                int unread = 0;
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Chat chat = snapshot.getValue(Chat.class);
+                    if(chat.getReceiver().equals(firebaseUser.getUid()) && !chat.isIsseen()){
+                        unread++;
+                    }
+                }
 
-        viewPager.setAdapter(viewPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
+                viewPagerAdapter.addFragment(new ContactFragment(), "Kontak");
+                if(unread == 0){
+                    viewPagerAdapter.addFragment(new UsersFragment(), "Pesan");
+                }
+                else{
+                    viewPagerAdapter.addFragment(new UsersFragment(), "("+unread+") Pesan");
+                }
+                viewPagerAdapter.addFragment(new ProfilFragment(), "Profil");
+
+                viewPager.setAdapter(viewPagerAdapter);
+                tabLayout.setupWithViewPager(viewPager);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     //Set logout dan buat group
