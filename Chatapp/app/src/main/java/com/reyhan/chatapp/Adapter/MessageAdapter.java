@@ -18,7 +18,11 @@ import com.reyhan.chatapp.MessageActivity;
 import com.reyhan.chatapp.Model.Chat;
 import com.reyhan.chatapp.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder>{
 
@@ -64,16 +68,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             Glide.with(context).load(imageURL).into(viewHolder.profile);
         }
 
-        //cek posisi chat terakhir
-        if (i == chats.size() - 1){
-            if (chat.isIsseen()){
-                viewHolder.seen.setText("Dilihat");
-            } else {
-                viewHolder.seen.setText("Terkirim");
-            }
-        } else {
-            viewHolder.seen.setVisibility(View.GONE);
+        if(chat.isIsseen()){
+            viewHolder.seen.setText("Dilihat");
         }
+        else{
+            viewHolder.seen.setText("Terkirim");
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy hh:mm a");
+        Date date = new Date(chat.getTimestamp());
+        viewHolder.timestamp.setText(sdf.format(date));
 
     }
 
@@ -90,6 +94,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         private ImageView profile;
 
         public TextView seen;
+        public TextView timestamp;
 
         private ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -97,6 +102,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             message = itemView.findViewById(R.id.show_message);
             profile = itemView.findViewById(R.id.image_profile);
             seen = itemView.findViewById(R.id.text_seen);
+            timestamp = itemView.findViewById(R.id.timestamp);
         }
     }
 

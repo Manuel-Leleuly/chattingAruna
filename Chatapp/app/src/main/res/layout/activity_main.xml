@@ -36,7 +36,6 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="#fff"
-                android:text="Username"
                 tools:ignore="RtlHardcoded" />
 
         </android.support.v7.widget.Toolbar>
