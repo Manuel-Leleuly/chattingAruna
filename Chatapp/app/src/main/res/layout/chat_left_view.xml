@@ -33,6 +33,15 @@
             android:visibility="gone"
             android:layout_below="@id/show_message"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/timestamp"
+            android:layout_marginLeft="50dp"
+            android:layout_below="@id/show_message"
+            android:text="timestamp"
+            android:textSize="10dp"/>
+
     </RelativeLayout>
 
 </RelativeLayout>

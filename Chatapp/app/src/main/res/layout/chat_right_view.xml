@@ -33,10 +33,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/show_message"
-            android:layout_marginTop="-12dp"
+            android:textStyle="bold"
             android:layout_marginEnd="5dp"
             android:layout_marginRight="12dp"
-            android:layout_toLeftOf="@id/show_message"
+            android:layout_toLeftOf="@id/timestamp"
             android:text="testing"
             android:textSize="10sp"/>
 
