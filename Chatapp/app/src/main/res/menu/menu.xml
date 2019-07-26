@@ -19,5 +19,9 @@
         android:icon="@drawable/camera"
         app:showAsAction="always"/>
 
+    <item
+        android:id="@+id/hapus_akun"
+        android:title="Hapus Akun"
+        app:showAsAction="never" />
 
 </menu>

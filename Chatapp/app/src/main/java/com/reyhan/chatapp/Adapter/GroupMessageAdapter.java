@@ -55,14 +55,6 @@ public class GroupMessageAdapter extends RecyclerView.Adapter<GroupMessageAdapte
     @Override
     public void onBindViewHolder(@NonNull GroupMessageAdapterViewHolder groupMessageAdapterViewHolder, int i) {
         Message message = messages.get(i);
-        /*if (message.getName().equals(AllMethods.name)){
-            groupMessageAdapterViewHolder.showMessage.setText(message.getMessage());
-            groupMessageAdapterViewHolder.showUser.setText("Anda");
-            groupMessageAdapterViewHolder.showMessage.setGravity(Gravity.START);
-        } else {
-            groupMessageAdapterViewHolder.showUser.setText(message.getName());
-            groupMessageAdapterViewHolder.showMessage.setText(message.getMessage());
-        }*/
         groupMessageAdapterViewHolder.showMessage.setText(message.getMessage());
         if(message.getName().equals(AllMethods.name)){
             groupMessageAdapterViewHolder.showUser.setText("Anda");
