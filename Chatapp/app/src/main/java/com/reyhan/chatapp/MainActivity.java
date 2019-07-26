@@ -213,44 +213,48 @@ public class MainActivity extends AppCompatActivity {
 
             //hapus akun
             case R.id.hapus_akun:
-                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-                dialog.setTitle("Apakah anda yakin ingin menghapus akun?");
-                dialog.setMessage("Menghapus akun ini mengakibatkan akun terhapus dari sistem dan anda tidak bisa lagi mengakses aplikasi menggunakan akun ini");
-                dialog.setPositiveButton("Hapus", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        String userid = firebaseUser.getUid();
-                        firebaseUser.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()){
-                                    Toast.makeText(MainActivity.this, "Akun berhasil dihapus", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(MainActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                                }
-                                else{
-                                    Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-                        String nama = "Akun sudah dihapus";
-                        reference.child("Users").child(userid).child("username").setValue(nama);
-                        reference.child("Users").child(userid).child("imageURL").setValue("default");
-                        reference.child("Users").child(userid).child("search").setValue("");
-                    }
-                });
-                dialog.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                });
-                AlertDialog alertDialog = dialog.create();
-                alertDialog.show();
+                removeAccount();
 
                 return true;
         }
         return false;
+    }
+
+    //menghapus akun
+    public void removeAccount(){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+        dialog.setTitle("Apakah anda yakin ingin menghapus akun?");
+        dialog.setMessage("Menghapus akun ini mengakibatkan akun terhapus dari sistem dan anda tidak bisa lagi mengakses aplikasi menggunakan akun ini");
+        dialog.setPositiveButton("Hapus", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String userid = firebaseUser.getUid();
+                firebaseUser.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            Toast.makeText(MainActivity.this, "Akun berhasil dihapus", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(MainActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                        }
+                        else{
+                            Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                String nama = "Akun sudah dihapus";
+                reference.child("Users").child(userid).child("imageURL").setValue("default");
+                reference.child("Users").child(userid).child("search").setValue("");
+            }
+        });
+        dialog.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        AlertDialog alertDialog = dialog.create();
+        alertDialog.show();
     }
 
     //mengambil foto dari dalam aplikasi

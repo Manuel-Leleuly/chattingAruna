@@ -88,6 +88,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         if(user.getSearch().equals("")){
             viewHolder.img_on.setVisibility(View.GONE);
             viewHolder.img_off.setVisibility(View.GONE);
+            viewHolder.username.setText("Akun sudah dihapus");
         }
 
         //respon ketika kontak di klik

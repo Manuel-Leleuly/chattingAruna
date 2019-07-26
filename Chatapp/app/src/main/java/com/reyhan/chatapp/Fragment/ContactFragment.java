@@ -136,10 +136,8 @@ public class ContactFragment extends Fragment {
 
                         assert user != null;
                         assert firebaseUser != null;
-                        if (!user.getId().equals(firebaseUser.getUid())) {
-                            if(!user.getSearch().equals("")) {
-                                users.add(user);
-                            }
+                        if (!user.getId().equals(firebaseUser.getUid()) && !user.getSearch().equals("")) {
+                            users.add(user);
                         }
                     }
 

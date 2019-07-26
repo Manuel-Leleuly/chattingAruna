@@ -61,23 +61,50 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
         Chat chat = chats.get(i);
 
-        viewHolder.message.setText(chat.getMessage());
+        if(chat.getType().equals("text")) {
+            viewHolder.message.setText(chat.getMessage());
+            viewHolder.pic_message.setVisibility(View.GONE);
+            viewHolder.timestamp_image.setVisibility(View.GONE);
+            viewHolder.imageSeen.setVisibility(View.GONE);
+            if(chat.isIsseen()){
+                viewHolder.seen.setText("Dilihat");
+            }
+            else{
+                viewHolder.seen.setText("Terkirim");
+            }
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy hh:mm a");
+            Date date = new Date(chat.getTimestamp());
+            viewHolder.timestamp.setText(sdf.format(date));
+        }
+        else{
+            viewHolder.message.setVisibility(View.INVISIBLE);
+            viewHolder.message.setPadding(0,0,0,0);
+            viewHolder.seen.setVisibility(View.GONE);
+            viewHolder.timestamp.setVisibility(View.GONE);
+
+            Glide.with(viewHolder.pic_message.getContext()).load(chat.getMessage()).placeholder(R.drawable.user).into(viewHolder.pic_message);
+            viewHolder.pic_message.setVisibility(View.VISIBLE);
+            viewHolder.timestamp_image.setVisibility(View.VISIBLE);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy hh:mm a");
+            Date date = new Date(chat.getTimestamp());
+            viewHolder.timestamp_image.setText(sdf.format(date));
+
+            if(chat.isIsseen()){
+                viewHolder.imageSeen.setText("Dilihat");
+            }
+            else{
+                viewHolder.imageSeen.setText("Terkirim");
+            }
+
+        }
+
         if (imageURL.equals("default")){
             viewHolder.profile.setImageResource(R.drawable.user);
         } else {
             Glide.with(context).load(imageURL).into(viewHolder.profile);
         }
-
-        if(chat.isIsseen()){
-            viewHolder.seen.setText("Dilihat");
-        }
-        else{
-            viewHolder.seen.setText("Terkirim");
-        }
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy hh:mm a");
-        Date date = new Date(chat.getTimestamp());
-        viewHolder.timestamp.setText(sdf.format(date));
 
     }
 
@@ -92,17 +119,23 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
         public TextView message;
         private ImageView profile;
+        private ImageView pic_message;
 
         public TextView seen;
         public TextView timestamp;
+        public TextView imageSeen;
+        public TextView timestamp_image;
 
         private ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             message = itemView.findViewById(R.id.show_message);
             profile = itemView.findViewById(R.id.image_profile);
+            pic_message = itemView.findViewById(R.id.pic_message);
             seen = itemView.findViewById(R.id.text_seen);
             timestamp = itemView.findViewById(R.id.timestamp);
+            imageSeen = itemView.findViewById(R.id.image_seen);
+            timestamp_image = itemView.findViewById(R.id.timestamp_image);
         }
     }
 
