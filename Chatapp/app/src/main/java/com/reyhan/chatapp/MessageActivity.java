@@ -135,6 +135,12 @@ public class MessageActivity extends AppCompatActivity {
                 } else {
                     Glide.with(getApplicationContext()).load(user.getImageURL()).into(circleImageView);
                 }
+
+                if(user.getSearch().equals("")){
+                    text.setVisibility(View.GONE);
+                    send.setVisibility(View.GONE);
+                }
+
                 readMessage(firebaseUser.getUid(), userid, user.getImageURL());
             }
             @Override
@@ -173,7 +179,6 @@ public class MessageActivity extends AppCompatActivity {
 
         //bungkus variabel yang ingin dikirim ke db dengan hashmap
         HashMap<String, Object> hashMap = new HashMap<>();
-        Map map = new HashMap();
         hashMap.put("sender", sender);
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);

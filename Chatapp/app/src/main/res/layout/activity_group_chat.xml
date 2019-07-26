@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GroupChatActivity"
+    android:background="@color/colorBase">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/bar_layout"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recView"
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <RelativeLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="5dp"
+        android:background="#fff">
+
+        <EditText
+            android:id="@+id/inputMessage"
+            android:layout_toStartOf="@id/sendGroupButton"
+            android:background="@drawable/roundchat"
+            android:hint="@string/ketik"
+            android:paddingStart="10dp"
+            android:paddingEnd="5dp"
+
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:inputType="textCapSentences"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:id="@+id/sendGroupButton"
+            android:layout_width="25dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/send"/>
+
+    </RelativeLayout>
+    
+</RelativeLayout>

@@ -13,4 +13,11 @@
         android:title="@string/keluar"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/camera"
+        android:title="post"
+        android:icon="@drawable/camera"
+        app:showAsAction="always"/>
+
+
 </menu>

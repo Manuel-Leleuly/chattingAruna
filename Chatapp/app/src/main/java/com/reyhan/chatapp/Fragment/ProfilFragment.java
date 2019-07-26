@@ -52,7 +52,6 @@ public class ProfilFragment extends Fragment {
     FirebaseUser firebaseUser;
     DatabaseReference reference;
 
-
     //set storage untuk penyimpanan foto
     StorageReference storageReference;
     private static final int IMG_REQUEST = 1;

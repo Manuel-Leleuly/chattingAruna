@@ -13,7 +13,19 @@
             android:id="@+id/image_profile"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@drawable/user"/>
+            android:background="@drawable/user"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/show_username"
+            android:layout_toEndOf="@id/image_profile"
+            android:textSize="8sp"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:text="name"
+            android:textColor="@color/colorText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/show_message"
@@ -28,21 +40,15 @@
             android:text="@string/test"/>
 
         <TextView
-            android:id="@+id/text_seen"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:layout_below="@id/show_message"/>
-
-        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/timestamp"
-            android:visibility="gone"
-            android:layout_marginLeft="50dp"
             android:layout_below="@id/show_message"
+            android:layout_marginTop="2dp"
             android:text="timestamp"
-            android:textSize="10dp"/>
+            android:textSize="8sp"
+            android:layout_marginLeft="50dp"/>
+
 
     </RelativeLayout>
 

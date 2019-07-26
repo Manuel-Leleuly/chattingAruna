@@ -7,22 +7,35 @@
     <RelativeLayout
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:padding="8dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/image_profile"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:visibility="gone"
             android:background="@drawable/user"/>
 
         <TextView
+            android:id="@+id/show_username"
+            android:textSize="8sp"
+            android:textStyle="bold"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:text="name"
+            android:textColor="@color/colorText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
             android:id="@+id/show_message"
-            android:layout_toEndOf="@+id/image_profile"
-            android:layout_below="@+id/show_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/receiveview"
-            android:layout_marginStart="10dp"
+            android:layout_below="@id/show_username"
+            android:background="@drawable/sendview"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
             android:textSize="16sp"
             android:padding="8dp"
             android:text="@string/test"/>
@@ -31,18 +44,25 @@
             android:id="@+id/text_seen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/show_message"
+            android:textStyle="bold"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="12dp"
+            android:layout_toLeftOf="@id/timestamp"
+            android:text="testing"
             android:visibility="gone"
-            android:layout_below="@id/show_message"/>
+            android:textSize="10sp"/>
 
         <TextView
+            android:id="@+id/timestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/timestamp"
-            android:visibility="gone"
-            android:layout_marginLeft="50dp"
             android:layout_below="@id/show_message"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
             android:text="timestamp"
-            android:textSize="10dp"/>
+            android:textSize="8dp"/>
+
 
     </RelativeLayout>
 

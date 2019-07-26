@@ -85,6 +85,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
             viewHolder.img_off.setVisibility(View.GONE);
         }
 
+        if(user.getSearch().equals("")){
+            viewHolder.img_on.setVisibility(View.GONE);
+            viewHolder.img_off.setVisibility(View.GONE);
+        }
+
         //respon ketika kontak di klik
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

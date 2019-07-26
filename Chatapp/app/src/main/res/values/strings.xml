@@ -28,4 +28,6 @@
     <string name="dilihat">dilihat</string>
     <string name="lupa_password">lupa password ?</string>
     <string name="reset">Setelah menekan tombol reset, maka akan ada email yang masuk untuk mereset password</string>
+    <string name="profil">Profil</string>
+    <string name="date">date</string>
 </resources>

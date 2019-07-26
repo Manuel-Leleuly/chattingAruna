@@ -26,9 +26,9 @@ import java.util.TimeZone;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder>{
 
-    //set adapter
-    public static final int LEFT_MSG = 0;
-    public static final int RIGHT_MSG = 1;
+    //set adapter chat
+    private static final int LEFT_MSG = 0;
+    private static final int RIGHT_MSG = 1;
 
     private Context context;
     private List<Chat> chats;
