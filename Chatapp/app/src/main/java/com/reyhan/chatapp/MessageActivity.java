@@ -232,10 +232,6 @@ public class MessageActivity extends AppCompatActivity {
 
                         inputToChatlist(userid);
 
-                        String msg = "Mengirim gambar";
-
-                        aktivasiNotifikasi(msg,userid);
-
                         dialog.dismiss();
                     } else {
                         Toast.makeText(MessageActivity.this, "Upload gagal", Toast.LENGTH_LONG).show();
@@ -249,6 +245,7 @@ public class MessageActivity extends AppCompatActivity {
                     dialog.dismiss();
                 }
             });
+
         } else {
             Toast.makeText(getApplicationContext(), "Tidak ada gambar yang dipilih", Toast.LENGTH_LONG).show();
         }
@@ -267,6 +264,10 @@ public class MessageActivity extends AppCompatActivity {
             } else {
                 uploadImage();
             }
+
+            Intent intent = getIntent();
+            aktivasiNotifikasi("Mengirim gambar",intent.getStringExtra("userid"));
+
         }
     }
 
