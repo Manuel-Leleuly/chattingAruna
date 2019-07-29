@@ -2,10 +2,7 @@ package com.reyhan.chatapp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Environment;
-import android.os.Handler;
-import android.provider.MediaStore;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -15,12 +12,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +23,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.api.Advice;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -43,16 +37,12 @@ import com.reyhan.chatapp.Fragment.UsersFragment;
 import com.reyhan.chatapp.Model.Chat;
 import com.reyhan.chatapp.Model.User;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
-
-    private static final int TAKE_PICTURE = 1;
-    private Uri imageUri;
 
     CircleImageView profile;
     private TextView username;
@@ -196,25 +186,27 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
 
+            //buat group chat
+            case R.id.newgroup:
+                requestNewGroup();
+                return true;
+
+            //baca berita
+            case R.id.berita:
+                Intent intent = new Intent(MainActivity.this, ArticleActivity.class);
+                startActivity(intent);
+                return true;
+
+            //hapus akun
+            case R.id.hapus_akun:
+                removeAccount();
+                return true;
+
             //fungsi firebase untuk logout
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(MainActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 finish();
-                return true;
-
-            //buat group chat
-            case R.id.newgroup:
-                requestNewGroup();
-
-            //ambil foto
-            case R.id.camera:
-                takePhoto();
-
-            //hapus akun
-            case R.id.hapus_akun:
-                removeAccount();
-
                 return true;
         }
         return false;
@@ -255,14 +247,6 @@ public class MainActivity extends AppCompatActivity {
         });
         AlertDialog alertDialog = dialog.create();
         alertDialog.show();
-    }
-
-    //mengambil foto dari dalam aplikasi
-    public void takePhoto() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, TAKE_PICTURE);
-        }
     }
 
     //Set fragment users, profil, kontak

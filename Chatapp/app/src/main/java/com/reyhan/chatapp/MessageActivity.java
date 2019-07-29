@@ -5,9 +5,9 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -17,7 +17,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
@@ -40,7 +39,6 @@ import com.google.firebase.storage.UploadTask;
 import com.reyhan.chatapp.Adapter.MessageAdapter;
 import com.reyhan.chatapp.Fragment.APIService;
 import com.reyhan.chatapp.Model.Chat;
-import com.reyhan.chatapp.Model.Message;
 import com.reyhan.chatapp.Model.User;
 import com.reyhan.chatapp.Notification.Client;
 import com.reyhan.chatapp.Notification.Data;
@@ -51,7 +49,6 @@ import com.reyhan.chatapp.Notification.Token;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -235,6 +232,10 @@ public class MessageActivity extends AppCompatActivity {
 
                         inputToChatlist(userid);
 
+                        String msg = "Mengirim gambar";
+
+                        aktivasiNotifikasi(msg,userid);
+
                         dialog.dismiss();
                     } else {
                         Toast.makeText(MessageActivity.this, "Upload gagal", Toast.LENGTH_LONG).show();
@@ -348,13 +349,18 @@ public class MessageActivity extends AppCompatActivity {
 
         final String msg = message;
 
+        aktivasiNotifikasi(msg,receiver);
+
+    }
+
+    private void aktivasiNotifikasi(final String message, final String receiver){
         reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 if(notify) {
-                    sendNotification(receiver, user.getUsername(), msg);
+                    sendNotification(receiver, user.getUsername(), message);
                 }
                 notify = false;
             }
@@ -364,7 +370,6 @@ public class MessageActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     private void sendNotification(String receiver, final String username, final String message){

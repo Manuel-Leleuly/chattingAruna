@@ -38,11 +38,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/timestamp"
-            android:visibility="gone"
             android:layout_marginLeft="50dp"
             android:layout_below="@id/show_message"
             android:text="timestamp"
             android:textSize="10dp"/>
+
+        <ImageView
+            android:id="@+id/pic_message"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/timestamp_image"
+            android:layout_below="@id/pic_message"
+            android:text="timestamp_image"
+            android:textSize="10dp"
+            android:layout_marginLeft="50dp"/>
+
+        <TextView
+            android:id="@+id/image_seen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pic_message"
+            android:textStyle="bold"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="12dp"
+            android:layout_toLeftOf="@id/timestamp_image"
+            android:text="testing"
+            android:textSize="10sp"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 

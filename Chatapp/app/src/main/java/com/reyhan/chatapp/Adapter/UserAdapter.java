@@ -66,7 +66,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         }
 
         if (isChat){
-            lastMessage(user.getId(), viewHolder.message, viewHolder.notif_each_user);
+            lastMessage(user.getId(), viewHolder.message, viewHolder.notif_each_user, user.getUsername());
         } else {
             viewHolder.message.setVisibility(View.GONE);
         }
@@ -132,7 +132,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         }
     }
 
-    private void lastMessage (final String userid, final TextView message, final TextView notif_each_user) {
+    private void lastMessage (final String userid, final TextView message, final TextView notif_each_user, final String username) {
         theLastMessage = "default";
         jumlah_pesan_unread = 0;
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -146,7 +146,17 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
                     if(firebaseUser != null) {
                         if (chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid)
                                 || chat.getReceiver().equals(userid) && chat.getSender().equals(firebaseUser.getUid())) {
-                            theLastMessage = chat.getMessage();
+                            if(chat.getType().equals("text")) {
+                                theLastMessage = chat.getMessage();
+                            }
+                            else{
+                                if(chat.getSender().equals(userid)) {
+                                    theLastMessage = username + " mengirim gambar";
+                                }
+                                else{
+                                    theLastMessage = "Anda mengirim gambar";
+                                }
+                            }
                             if (chat.getSender().equals(userid)) {
                                 if (!chat.isIsseen()) {
                                     jumlah_pesan_unread++;

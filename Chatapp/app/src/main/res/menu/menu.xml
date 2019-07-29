@@ -9,19 +9,19 @@
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/logout"
-        android:title="@string/keluar"
+        android:id="@+id/berita"
+        android:title="Baca Berita"
         app:showAsAction="never"/>
-
-    <item
-        android:id="@+id/camera"
-        android:title="post"
-        android:icon="@drawable/camera"
-        app:showAsAction="always"/>
 
     <item
         android:id="@+id/hapus_akun"
         android:title="Hapus Akun"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/logout"
+        android:title="@string/keluar"
+        app:showAsAction="never"/>
+
 
 </menu>

@@ -7,10 +7,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -59,6 +57,9 @@ public class GroupMessageAdapter extends RecyclerView.Adapter<GroupMessageAdapte
         if(message.getName().equals(AllMethods.name)){
             groupMessageAdapterViewHolder.showUser.setText("Anda");
             groupMessageAdapterViewHolder.showMessage.setGravity(Gravity.START);
+        } else {
+            groupMessageAdapterViewHolder.showUser.setText(message.getName());
+            groupMessageAdapterViewHolder.showMessage.setText(message.getMessage());
         }
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy hh:mm a");
